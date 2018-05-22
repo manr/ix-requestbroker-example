@@ -2,6 +2,7 @@
 .idea/
 .vscode/
 node_modules/
+dist
 build
 logs/
 .DS_Store
