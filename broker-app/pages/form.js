@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { ServerRequest } from 'http';
+import Link from 'next/link';
 
 export default class extends React.Component {
 
@@ -31,13 +31,13 @@ export default class extends React.Component {
         return (
             <div>
                 <div>
-                    My Form
+                    Post form request
                 </div>
                 <div>
                     
                 </div>
                 <div>
-
+                    <Link href="/index"><a>Back</a></Link>
                 </div>
             </div>
         )

@@ -24,7 +24,7 @@ export default class extends React.Component {
             const result = response.data.request_id ? response.data.result : response.data;
             return { userAgent:userAgent, brokerResponse: result }
         } else {
-            return { userAgent:"N/A", brokerResponse: "No response" }
+            return { userAgent:"", brokerResponse: "Waiting for response" }
         }
     }
 
@@ -61,7 +61,7 @@ export default class extends React.Component {
                     <button onClick={this.refresh}>Refresh</button>
                 </div>
                 <div>
-                    <Link href="/form"><a>Go to form</a></Link>
+                    <Link href="/form"><a>Post form</a></Link>
                 </div>
             </div>
         )
