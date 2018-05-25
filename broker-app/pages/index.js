@@ -1,6 +1,9 @@
 import React from 'react'
 import axios from 'axios'
 import Link from 'next/link';
+import "../normalize.css"
+import "../main.css"
+
 
 export default class extends React.Component {
 
@@ -29,7 +32,7 @@ export default class extends React.Component {
     }
 
     async refresh(e) {
-        const response = await axios.get('http://localhost:5000/api/send/test1').catch((e) => e.response )
+        const response = await axios.get('http://localhost:5000/api/send/request').catch((e) => e.response )
         const result = response.data.request_id ? response.data.result : response.data;
         console.debug(result)
         this.setState(prevState => ({
@@ -51,16 +54,17 @@ export default class extends React.Component {
     render() {
         return (
             <div>
-                <div>
-                    Hello World {this.props.userAgent}
+                <div style={{margin:10}}>
+                    <h2>Broker App</h2>
+                    User Agent: {this.props.userAgent}
                 </div>
-                <div>
-                    {this.state.brokerResponse}
+                <div style={{margin:10}}>
+                    Request: {this.state.brokerResponse}
                 </div>
-                <div>
+                <div style={{margin:10}}>
                     <button onClick={this.refresh}>Refresh</button>
                 </div>
-                <div>
+                <div style={{margin:10}}>
                     <Link href="/form"><a>Post form</a></Link>
                 </div>
             </div>

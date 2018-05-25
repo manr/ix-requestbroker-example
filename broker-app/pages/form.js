@@ -7,7 +7,7 @@ export default class extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {name: "", description: ""};
+        this.state = {name: "", description: "", result: ""};
 
         // This binding is necessary to make `this` work in the callback
         this.handleChange = this.handleChange.bind(this);
@@ -20,11 +20,11 @@ export default class extends React.Component {
      */
     static async getInitialProps({ req }) {
         if (req) {
-            return {name: "", description: ""}
+            return {name: "", description: "", result: ""};
         }
         else
         {
-            return {name: "", description: ""}
+            return {name: "", description: "", result: ""};
         }
     }
 
@@ -47,20 +47,24 @@ export default class extends React.Component {
     async submitForm(event) {
         event.preventDefault();
 
-        const response = await axios.get('http://localhost:5000/api/send/' + this.state.name).catch((e) => e.response )
-        const result = response.data.request_id ? response.data.result : response.data;
+        const response = await axios.get('http://localhost:5000/api/send/' + this.state.name)
+                                    .catch((e) => e.message)
+
+        const result = (response.data && response.data.request_id) ? response.data.result : response;
         
         this.setState(prevState => ({
-            name: result
+            name: "",
+            description: "",
+            result: result
         }));
     }
 
-
+    
     render() {
         return (
             <div>
                 <div>
-                    Post form request
+                    <h2>Post form request</h2>
                 </div>
                 <form onSubmit={this.submitForm}>
                     <div>
@@ -74,6 +78,9 @@ export default class extends React.Component {
                         Description:
                         <input type="text" name="tfDescr" value={this.state.description} onChange={this.handleChange}/>
                     </label>
+                    </div>
+                    <div>
+                        Result: {this.state.result}
                     </div>
                     <div>
                         <input type="submit" value="Submit" />
