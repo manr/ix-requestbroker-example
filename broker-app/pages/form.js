@@ -7,7 +7,7 @@ export default class extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {name: "", description: "", result: ""};
+        this.state = {msg: "", description: "", result: ""};
 
         // This binding is necessary to make `this` work in the callback
         this.handleChange = this.handleChange.bind(this);
@@ -20,11 +20,11 @@ export default class extends React.Component {
      */
     static async getInitialProps({ req }) {
         if (req) {
-            return {name: "", description: "", result: ""};
+            return {msg: "", description: "", result: ""};
         }
         else
         {
-            return {name: "", description: "", result: ""};
+            return {msg: "", description: "", result: ""};
         }
     }
 
@@ -34,9 +34,9 @@ export default class extends React.Component {
 
         const value = event.target.value;
         
-        if (event.target.name === 'tfName')
+        if (event.target.name === 'tfMsg')
             this.setState(prevState => ({
-                name: value
+                msg: value
             }));
         else
             this.setState(prevState => ({
@@ -47,13 +47,13 @@ export default class extends React.Component {
     async submitForm(event) {
         event.preventDefault();
 
-        const response = await axios.get('http://localhost:5000/api/send/' + this.state.name)
+        const response = await axios.get('http://localhost:5000/api/send/' + this.state.msg)
                                     .catch((e) => e.message)
 
         const result = (response.data && response.data.request_id) ? response.data.result : response;
         
         this.setState(prevState => ({
-            name: "",
+            msg: "",
             description: "",
             result: result
         }));
@@ -69,15 +69,9 @@ export default class extends React.Component {
                 <form onSubmit={this.submitForm}>
                     <div>
                         <label>
-                            Name:
-                            <input type="text" name="tfName" value={this.state.name} onChange={this.handleChange}/>
+                            Message:
+                            <input type="text" name="tfMsg" value={this.state.msg} onChange={this.handleChange}/>
                         </label>
-                    </div>
-                    <div>
-                    <label>
-                        Description:
-                        <input type="text" name="tfDescr" value={this.state.description} onChange={this.handleChange}/>
-                    </label>
                     </div>
                     <div>
                         Result: {this.state.result}

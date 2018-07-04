@@ -23,7 +23,7 @@ export default class extends React.Component {
     static async getInitialProps({ req }) {
         if (req) {
             const userAgent = req ? req.headers['user-agent'] : navigator.userAgent
-            const response = await axios.get('http://localhost:5000/api/send/test1').catch((e) => e.response )
+            const response = await axios.get('http://localhost:5000/api/send/initial').catch((e) => e.response )
             const result = response.data.request_id ? response.data.result : response.data;
             return { userAgent:userAgent, brokerResponse: result }
         } else {
@@ -32,7 +32,7 @@ export default class extends React.Component {
     }
 
     async refresh(e) {
-        const response = await axios.get('http://localhost:5000/api/send/request').catch((e) => e.response )
+        const response = await axios.get('http://localhost:5000/api/send/timer').catch((e) => e.response )
         const result = response.data.request_id ? response.data.result : response.data;
         console.debug(result)
         this.setState(prevState => ({
