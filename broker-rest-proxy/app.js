@@ -68,9 +68,9 @@ app.get('/api/send/:msg', function(req, res) {
     var msg = req.params.msg;
     var id = uuid();
     var msgToSend = JSON.stringify({'id':id, 'msg':msg});
+    req_map.set(id, res);
     pub.publish('ix::request', msgToSend, function(result) {
         console.log('sent request to consumer...')
-        req_map.set(id, res);
     });
 });
 

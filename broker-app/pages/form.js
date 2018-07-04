@@ -47,6 +47,10 @@ export default class extends React.Component {
     async submitForm(event) {
         event.preventDefault();
 
+        this.setState(prevState => ({
+            result: ""
+        }));
+
         const response = await axios.get('http://localhost:5000/api/send/' + this.state.msg)
                                     .catch((e) => e.message)
 
